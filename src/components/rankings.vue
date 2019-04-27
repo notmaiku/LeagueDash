@@ -1,7 +1,7 @@
 <template>
   <div>
-    <p>twenty million stinky dogs</p>
-    <navigation />
+    <p>ahahahaha</p>
+    <navigation/>
   </div>
 </template>
 
@@ -9,7 +9,7 @@
 import navigation from "./simple-nav";
 
 export default {
-  name: "home",
+  name: "ranking",
   components: {
     navigation
   }

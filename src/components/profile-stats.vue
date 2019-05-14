@@ -1,22 +1,54 @@
+<template>
+  <div class="window">
+    <label class="drop">
+      Servers
+      <i class="fas fa-caret-down"></i>
+    </label>
+    <table id="tables">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Level</th>
+        </tr>
+      </thead>
+      <tbody>
+        <td>
+          {{profile.name}}
+        </td>
+         <td>
+          {{profile.summonerLevel}}
+        </td>
+      </tbody>
+    </table>
+  </div>
+</template>
+
 <script>
-import { Line } from 'vue-chartjs'
+import axios from 'axios';
 
 export default {
-  extends: Line,
-  mounted () {
-    // Overwriting base render method with actual data.
-    this.renderChart({
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-      datasets: [
-        {
-          label: 'GitHub Commits',
-          backgroundColor: '#f87979',
-          data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11]
-        }
-      ]
-    })
-  }
-}
+name: "table",
+components:{
+},
+data() {
+    return {
+    profile: [] 
+    };
+},
+mounted() {
+    this.getData();
+},
+methods: {
+    getData() {
+    axios
+        .get("https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/Rosé Hime Bunny?api_key=RGAPI-d893d9b2-efaa-461f-a4c9-5c98cd53630b")
+        .then(response => {this.profile = response.data})
+        console.log(this.profile)
+        
+    }
+},
+};
+//https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/RiotSchmick?api_key=RGAPI-d893d9b2-efaa-461f-a4c9-5c98cd53630b
 </script>
 
 <style>

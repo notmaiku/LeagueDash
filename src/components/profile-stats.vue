@@ -18,6 +18,7 @@
          <td>
           {{profile.summonerLevel}}
         </td>
+        <td>{{match}}</td>
       </tbody>
     </table>
   </div>
@@ -32,19 +33,28 @@ components:{
 },
 data() {
     return {
-    profile: [] 
+    profile: [],
+    match: [],
+    id: [],
     };
 },
 mounted() {
     this.getData();
 },
+updated(){
+    this.getMatch();
+},
 methods: {
     getData() {
     axios
-        .get("https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/Rosé Hime Bunny?api_key=RGAPI-d893d9b2-efaa-461f-a4c9-5c98cd53630b")
+        .get("https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/Yevely?api_key=RGAPI-d893d9b2-efaa-461f-a4c9-5c98cd53630b")
         .then(response => {this.profile = response.data})
-        console.log(this.profile)
-        
+    },
+    getMatch(){
+      var profile = this.profile;
+      axios
+        .get("https://na1.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/"+profile.id+"?api_key=RGAPI-d893d9b2-efaa-461f-a4c9-5c98cd53630b")
+        .then( response => {this.match = response.data})
     }
 },
 };
